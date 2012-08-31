@@ -86,6 +86,9 @@ class SeleniumMapper(object):
         """
         self.test.fail(args[2])
 
+    def _debug(self, args):
+        if self.test.debug: print(args)
+
     def open(self, args):
         # Warning: Selenese tests don't mind 404s; Selenium RC does
         self.sel.open(args[0])

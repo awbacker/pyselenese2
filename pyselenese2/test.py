@@ -14,19 +14,22 @@ except IndexError:
 # Test basic multi-file tests
 BasicTests = generate_test_case(
     TestSuiteFileAdaptor("test_input_files"),
-    server
+    server,
+    debug=True
 )
 
 # Also test more than one class
 SecondTest = generate_test_case(
     TestSuiteFileAdaptor("test_input_files/secondtest"),
-    server
+    server,
+    debug=True
 )
 
 # Test supported actions
 ActionsTests = generate_test_case(
     TestSuiteFileAdaptor("test_input_files/actions"),
-    server
+    server,
+    debug=True
 )
 
 unittest.main()

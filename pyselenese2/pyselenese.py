@@ -114,19 +114,18 @@ class PySeleneseError(Exception):
     pass
 
 def generate_test_case(adaptor, server="localhost", port=4444,
-        driver="*firefox", domain="github.com"):
+        driver="*firefox", domain="github.com", debug=False):
     ''' Returns a TestCase that runs all the tests found by the adaptor '''
 
-    class TestCase(PySeleneseTestSuite):
-        def __init__(self, *args, **kwargs):
-            super(PySeleneseTestSuite, self).__init__(*args, **kwargs)
-            self.server = server
-            self.port = port
-            self.driver = driver
-            self.domain = domain
+    class TestCase(PySeleneseTestSuite): pass
+    TestCase.server = server
+    TestCase.port = port
+    TestCase.driver = driver
+    TestCase.domain = domain
+    TestCase.debug = debug
 
     for i, table in enumerate(adaptor.get_tests()):
-        fn = lambda obj: table.get_runnable()
+        fn = table.get_runnable()
         fn.__setattr__("__doc__", table.get_name())
         fn.__setattr__("_selenium_index", i)
         type(TestCase).__setattr__(TestCase, "test_%d" % i, fn)
