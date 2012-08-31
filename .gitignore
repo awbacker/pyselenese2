@@ -1,4 +1,4 @@
-selenium.py
 *.pyc
 .*.swp
 *~
+build
