@@ -13,21 +13,21 @@ def _camelcase_to_underscore(text):
 class SeleniumMapper(object):
     """Maps Selenium commands to Selenese <td> contents"""
 
-    # Master debug setting in selenese.py - suggest you change it there
-    DEBUG = False
-
     def __init__(self, test):
+        ''' test must be a PySeleneseTest (has a .sel attribute that is a
+        selenium object instance) '''
         self.test = test
-        self.sel = test.selenium
+        self.sel = test.sel
 
     # Trans-parent introspection - if the method exists on the child self.sel
-    # object, but NOT on this object, then these two methods introspect through to 
-    # the child's method, work out its arg count, and "just" call it.
+    # object, but NOT on this object, then these two methods introspect
+    # through to the child's method, work out its arg count, and "just" call
+    # it.
     def __getattribute__(self, name):
         try:
             # Does the method exist on SeleniumMapper i.e. self?
             return object.__getattribute__(self, name)
-        except AttributeError, e:
+        except AttributeError:
             # If not, try to get from the child self.sel object
             sel_method = getattr(self.sel, name)
             # Wrap in a lambda so we can call it safely with args
@@ -76,15 +76,14 @@ class SeleniumMapper(object):
         self.sel.click(args[0])
         self.sel.wait_for_page_to_load(30000)
 
-    def _debug(self, args):
-        """Debugging"""
-        if self.DEBUG: print args[2]
-
     def deleteAllVisibleCookies(self, args):
         self.sel.delete_all_visible_cookies()
 
     def _fail(self, args):
-        """Selenese does not have a native fail, but it can come in handy for debugging"""
+        """
+        Selenese does not have a native fail, but it can come in handy for
+        debugging.
+        """
         self.test.fail(args[2])
 
     def open(self, args):
@@ -106,3 +105,4 @@ class SeleniumMapper(object):
 
 if __name__ == '__main__':
     print "\n".join([a for a in dir(SeleniumMapper) if a[0:2] != "__"])
+
