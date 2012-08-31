@@ -2,7 +2,7 @@
 
 import os
 import unittest
-import StringIO
+from StringIO import StringIO
 
 from lxml import etree
 from selenium import selenium
