@@ -1,1 +1,2 @@
 recursive-include pyselenese2/test_input_files *.html
+include README.rst
