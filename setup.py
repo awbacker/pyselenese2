@@ -7,7 +7,7 @@ setup(
     version          = '0.0.2',
     description      = "Python Selenese translator",
     license          = 'MIT License',
-    long_description = open('README').read(),
+    long_description = open('README.rst').read(),
     classifiers      = [
         'Intended Audience :: Developers',
     ],
