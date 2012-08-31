@@ -1,5 +1,5 @@
 Python Selenese translator
---------------------------
+==========================
 
 Selenium IDE lets you create Selenium tests in specially structured HTML (or
 "Selenese"). These can be easily run on your local machine but do not lend
@@ -11,15 +11,16 @@ the standard Python unit testing framework and using the Python Selenium
 bindings.
 
 
-= Warning =
+Warning
+-------
 
 This code is still under construction. It might break randomly and does not 
 currently support more than a fraction of Selenese keywords. If you'd like to
 improve its behaviour then please add more methods to the class in mapper.py
 to map Selenese keywords to Python-binding API calls.
 
-
-= Setup =
+Setup
+-----
 
 1. Download Selenium RC http://seleniumhq.org/download/
 
@@ -34,54 +35,42 @@ in the background:
 from Selenium RC and place it within this repository
 
 
-= Execution =
+Execution
+---------
 
-Assuming your Selenese test suite is saved as ~/my-tests/index.html (with all 
-the separate test files within ~/my-tests/ too) you can run the following at 
-a command prompt:
+A `test.py` example file is provided, where it shows how to run tests from
+files. You can alternatively use a `SingleStringAdaptor` to create tests from
+a single string.
 
- python main.py ~/my-tests [selenium-server]
+If your target is to build tests from a folder (or a set of folders), take
+a look at the usage of the `generate_test_case` function in combination with
+the `TestSuiteFileAdaptor`.
 
-The server defaults to "localhost"
+Testing
+-------
 
-Alternatively you can run Selenese tests alongside your other unittest test
-cases using e.g:
-
- class OneTest(unittest.TestCase):
-     # ...
-
- class TwoTest(unittest.TestCase):
-     # ...
-
- ThreeTest = selenese.convert_selenese(directory_name, root_url)
-
-This creates a ThreeTest class, just like a OneTest and TwoTest, which 
-unittest will pick up on and run. Selenium IDE tests require a root_url, as
-they all run within the same domain owing to browser security restrictions.
-This is not encoded within the tests as it is assumed that the tests are to
-be run off the same domain as the website under test.
-
-
-= Testing =
-
-PySelenese can itself be tested and contains its own internal test suite. Run:
+Functional testing is implemented through Selenese tests.
 
  python test.py [selenium-server]
 
-This should run near-silently as per a normal unittest run. Alternatively, 
-tests can be run in debug mode with e.g:
-
- python test.py localhost debug
-
-You should then see some debug messages, both from the conversion process and
-from the tests themselves, but no failures.
-
-
-= Known issues =
+Known issues
+------------
 
 The main issue is that not all of Selenium's test syntax has been transcribed
 in mapper.py yet. Please let me know if your tests fail on a particular 
 Selenium keyword; alternatively, feel free to fork the github repository and 
 add the mapping yourself.
+
+Credits
+-------
+
+All the mapper.py functions were created by J.P. Stacey. Development on
+PySelenese seems to have halted two years ago. I just needed something to
+translate a HTML Selenese string and this is the best project I've found.
+
+Some heavy refactoring needed to take place though, but the heavy part(map
+the Selenese functions to Python in real time) was already done by Stacey.
+
+Here is the original repo:
 
  http://github.com/jpstacey/PySelenese
